@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 49856c243daf64d85a2acb86cb9b043a, type: 3}
+  m_Name: Enemy2
+  m_EditorClassIdentifier: 
+  <moveSpeed>k__BackingField: 1.5
+  <turnSpeed>k__BackingField: 900
+  <health>k__BackingField: 2
+  <disAttack>k__BackingField: 1.5
+  <disView>k__BackingField: 100
+  <skinMaterial>k__BackingField: {fileID: 2100000, guid: 5d5a8e570d0334f10b90b1363c353824, type: 2}

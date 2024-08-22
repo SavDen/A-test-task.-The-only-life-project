@@ -1,0 +1,16 @@
+fileFormatVersion: 2
+guid: 01214809f37154a3dad1c5e99ab6da59
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - enemyType: {fileID: 11400000, guid: ffbf27b3e9fb645d7bd9185601bf17c9, type: 2}
+  - _playerTarget: {instanceID: 0}
+  - _weapon: {instanceID: 0}
+  - _bloodParticle: {instanceID: 0}
+  - skinnedMesh: {instanceID: 0}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
