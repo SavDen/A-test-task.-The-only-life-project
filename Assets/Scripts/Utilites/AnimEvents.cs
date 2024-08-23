@@ -11,6 +11,11 @@ public class AnimEvents : MonoBehaviour
         Player.TakeHit();
     }
 
+    public void PlayAttackSound()
+    {
+        Player.PlayAttackSound();
+    }
+
     public void EnemyAttack()
     {
         Enemy.TakeHit();

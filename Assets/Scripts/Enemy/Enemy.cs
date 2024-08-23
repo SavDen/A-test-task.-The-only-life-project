@@ -12,6 +12,7 @@ public class Enemy : MonoBehaviour, IEnemy
     [SerializeField] private float disView;
 
     [SerializeField] private AnimController _animController;
+    [SerializeField] private AudioSystem _audioSystem;
 
     [SerializeField] private GameObject _weapon;
     [SerializeField] private ParticleSystem _bloodParticle;
@@ -21,20 +22,11 @@ public class Enemy : MonoBehaviour, IEnemy
     private NavMeshAgent _navMeshAgent;
     private float _damageWeapon;
 
-    private void OnEnable()
-    {
-        CointerKill.GameOver += Dead;
-    }
-
-    private void OnDisable()
-    {
-        CointerKill.GameOver -= Dead;
-    }
-
     void Awake()
     {
         _navMeshAgent = GetComponent<NavMeshAgent>();
         _damageWeapon = _weapon.GetComponent<Weapon>().damage;
+        _audioSystem.Instalize();
 
         if(FindAnyObjectByType<CharacterController>())
         _playerTarget = FindAnyObjectByType<CharacterController>().transform;
@@ -52,6 +44,7 @@ public class Enemy : MonoBehaviour, IEnemy
 
     void Update()
     {
+        
         if (_playerTarget != null)
         {
             var distance = Vector3.Distance(transform.position, _playerTarget.position);
@@ -60,6 +53,7 @@ public class Enemy : MonoBehaviour, IEnemy
             {
                 _animController.Move(false);
                 _animController.Attack(true);
+                _audioSystem.AudioDictinory["Move"].mute = false;
             }
 
             else if (distance <= disView)
@@ -67,6 +61,7 @@ public class Enemy : MonoBehaviour, IEnemy
                 _navMeshAgent.SetDestination(_playerTarget.position);
                 _animController.Move(true);
                 _animController.Attack(false);
+                _audioSystem.AudioDictinory["Move"].mute = true;
 
             }
 
@@ -74,6 +69,7 @@ public class Enemy : MonoBehaviour, IEnemy
             {
                 _animController.Move(false);
                 _animController.Attack(false);
+                _audioSystem.AudioDictinory["Move"].mute = false;
             }
         }
 
@@ -81,12 +77,14 @@ public class Enemy : MonoBehaviour, IEnemy
         {
             _animController.Move(false);
             _animController.Attack(false);
+            _audioSystem.AudioDictinory["Move"].mute = false;
         }
     }
 
     public void GetDamage(float damage)
     {
         _bloodParticle.Play();
+        _audioSystem.AudioDictinory["Damage"].Play();
 
         if (health > 0)
         {
@@ -105,6 +103,7 @@ public class Enemy : MonoBehaviour, IEnemy
             if (hit.transform.TryGetComponent(out IPlayer player))
             {
                 player.GetDamage(_damageWeapon);
+                _audioSystem.AudioDictinory["Attack"].Play();
             }
         }
     }
@@ -118,6 +117,11 @@ public class Enemy : MonoBehaviour, IEnemy
 
     private void Dead()
     {
+        _audioSystem.AudioDictinory["Background"].Stop();
+
+        if (!_audioSystem.AudioDictinory["Dead"].isPlaying)
+        _audioSystem.AudioDictinory["Dead"].Play();
+
         _animController.Dead();
         LeanPool.Despawn(gameObject, 3f);
     }
